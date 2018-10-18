@@ -6782,6 +6782,10 @@ reduce-css-calc@^2.0.0:
     css-unit-converter "^1.1.1"
     postcss-value-parser "^3.3.0"
 
+redux-zero@^4.14.0:
+  version "4.14.0"
+  resolved "https://registry.yarnpkg.com/redux-zero/-/redux-zero-4.14.0.tgz#6da4bdac184cd8a8a5f9dd7e4160b99f14b62cab"
+
 regenerate-unicode-properties@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/regenerate-unicode-properties/-/regenerate-unicode-properties-7.0.0.tgz#107405afcc4a190ec5ed450ecaa00ed0cafa7a4c"
