@@ -9,7 +9,8 @@ import Container from '@material-ui/core/Container';
 import Fab from '@material-ui/core/Fab';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 import logo from './../assets/logo-new.svg';
 
@@ -21,6 +22,14 @@ const useStyles = makeStyles((theme) => ({
     },
     logo: {
         height: '7em'
+    },
+    tabsContainer: {
+        marginLeft: 'auto'
+    },
+    tab: {
+        ...theme.typography.tab,
+        minWidth: 10,
+        marginLeft: "25px"
     }
 }));
 
@@ -61,6 +70,13 @@ export const Header = (props) => {
             <AppBar>
                 <Toolbar disableGutters>
                     <img src={logo} alt="company logo" className={classes.logo}/>
+                    <Tabs className={classes.tabsContainer}>
+                        <Tab className={classes.tab} label="Home"/>
+                        <Tab label="Services"/>
+                        <Tab label="Vision"/>
+                        <Tab label="About us"/>
+                        <Tab label="Contact us"/>
+                    </Tabs>
                 </Toolbar>
             </AppBar>
             <Toolbar id="back-to-top-anchor"/>

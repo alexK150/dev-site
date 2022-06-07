@@ -17,4 +17,12 @@ export default createTheme({
             main: mainOrange,
         },
     },
+    typography: {
+        tab: {
+            fontFamily: "Raleway",
+            textTransform: "none",
+            fontWeight: 700,
+            fontSize: "1rem",
+        }
+    }
 });
