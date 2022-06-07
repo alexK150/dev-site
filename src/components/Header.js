@@ -11,12 +11,17 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 
+import logo from './../assets/logo-new.svg';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         position: 'fixed',
         bottom: theme.spacing(2),
         right: theme.spacing(2),
     },
+    logo: {
+        height: '7em'
+    }
 }));
 
 function ScrollTop(props) {
@@ -49,12 +54,13 @@ function ScrollTop(props) {
 }
 
 export const Header = (props) => {
+    const classes = useStyles();
     return (
         <>
             <CssBaseline/>
             <AppBar>
-                <Toolbar>
-                    <Typography variant="h5">Hello Developer</Typography>
+                <Toolbar disableGutters>
+                    <img src={logo} alt="company logo" className={classes.logo}/>
                 </Toolbar>
             </AppBar>
             <Toolbar id="back-to-top-anchor"/>
