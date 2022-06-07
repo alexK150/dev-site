@@ -1,8 +1,15 @@
 import React, { Component } from "react";
+import {Header} from "./Header";
+import { makeStyles, ThemeProvider } from '@material-ui/styles';
+import theme from "./../common/MUITheme";
 
 class App extends Component {
     render() {
-        return <div>This is a boilerplate project</div>;
+        return (
+            <ThemeProvider theme={theme}>
+                <Header/>
+            </ThemeProvider>
+        )
     }
 }
 
