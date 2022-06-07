@@ -54,7 +54,7 @@ export const Header = (props) => {
             <CssBaseline/>
             <AppBar>
                 <Toolbar>
-                    <Typography variant="h6">Hello Developer</Typography>
+                    <Typography variant="h5">Hello Developer</Typography>
                 </Toolbar>
             </AppBar>
             <Toolbar id="back-to-top-anchor"/>
