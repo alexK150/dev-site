@@ -11,6 +11,7 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Button from '@material-ui/core/Button';
 
 import logo from './../assets/logo-new.svg';
 
@@ -30,6 +31,11 @@ const useStyles = makeStyles((theme) => ({
         ...theme.typography.tab,
         minWidth: 10,
         marginLeft: "25px"
+    },
+    btn: {
+        ...theme.typography.headerBtn,
+        borderRadius: "50px",
+        textTransform: "none",
     }
 }));
 
@@ -77,6 +83,9 @@ export const Header = (props) => {
                         <Tab label="About us"/>
                         <Tab label="Contact us"/>
                     </Tabs>
+                    <Button className={classes.btn} variant='contained' color='secondary'>
+                        Button
+                    </Button>
                 </Toolbar>
             </AppBar>
             <Toolbar id="back-to-top-anchor"/>
