@@ -82,15 +82,16 @@ export const Header = (props) => {
     const [state, dispatch] = useReducer(headerReducer, initialHeaderState);
     const classes = useStyles();
 
-    useEffect(() => {
-        if (window.location.pathname === '/' && state.linkValue !== 0) dispatch({type: 'SET_LINK_VALUE', payload: 0})
-        else if (window.location.pathname === '/services' && state.linkValue !== 1) dispatch({type: 'SET_LINK_VALUE', payload: 1})
-        else if (window.location.pathname === '/vision' && state.linkValue !== 2) dispatch({type: 'SET_LINK_VALUE', payload: 2})
-        else if (window.location.pathname === '/about' && state.linkValue !== 3) dispatch({type: 'SET_LINK_VALUE', payload: 3})
-        else if (window.location.pathname === '/contact' && state.linkValue !== 4) dispatch({type: 'SET_LINK_VALUE', payload: 4})
-    }, [state.value])
+    const handleSetLinkValue = (value) => dispatch({type: 'SET_LINK_VALUE', payload: value});
+    const onChangeHandle = (evt, value) => handleSetLinkValue(value);
 
-    const onChangeHandle = (evt, value) => dispatch({type: 'SET_LINK_VALUE', payload: value});
+    useEffect(() => {
+        if (window.location.pathname === '/' && state.linkValue !== 0) handleSetLinkValue(0)
+        else if (window.location.pathname === '/services' && state.linkValue !== 1) handleSetLinkValue(1)
+        else if (window.location.pathname === '/vision' && state.linkValue !== 2) handleSetLinkValue(2)
+        else if (window.location.pathname === '/about' && state.linkValue !== 3) handleSetLinkValue(3)
+        else if (window.location.pathname === '/contact' && state.linkValue !== 4) handleSetLinkValue(4)
+    }, [state.value])
 
     return (
         <>
@@ -100,7 +101,7 @@ export const Header = (props) => {
                     <Button
                         component={Link} to="/"
                         className={classes.logoContainer}
-                        onClick={() => dispatch({type: 'SET_LINK_VALUE', payload: 0})}
+                        onClick={() => handleSetLinkValue(0)}
                         disableRipple
                     >
                         <img src={logo} alt="company logo" className={classes.logo}/>
