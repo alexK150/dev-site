@@ -1,9 +1,6 @@
 import React, {useEffect, useReducer} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import { makeStyles } from '@material-ui/core/styles';
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import Zoom from '@material-ui/core/Zoom';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Fab from '@material-ui/core/Fab';
@@ -13,77 +10,22 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
-import logo from './../assets/logo-new.svg';
-import {headerReducer, initialHeaderState} from "../state/reducers/headerReducer";
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        position: 'fixed',
-        bottom: theme.spacing(2),
-        right: theme.spacing(2),
-    },
-    logo: {
-        height: '7em'
-    },
-    tabsContainer: {
-        marginLeft: 'auto'
-    },
-    toolBarMargin: {
-        ...theme.mixins.toolbar,
-        marginTop: "-2em"
-    },
-    tab: {
-        ...theme.typography.tab,
-        minWidth: 10,
-        marginLeft: "25px"
-    },
-    btn: {
-        ...theme.typography.headerBtn,
-        borderRadius: "50px",
-        textTransform: "none",
-    },
-    logoContainer: {
-        padding: 0,
-        "&:hover": {
-            backgroundColor: "transparent"
-        }
-    }
-}));
-
-function ScrollTop(props) {
-    const {children, window} = props;
-    const classes = useStyles();
-    // Note that you normally won't need to set the window ref as useScrollTrigger
-    // will default to window.
-    // This is only being set here because the demo is in an iframe.
-    const trigger = useScrollTrigger({
-        target: window ? window() : undefined,
-        disableHysteresis: true,
-        threshold: 100,
-    });
-
-    const handleClick = (event) => {
-        const anchor = (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
-
-        if (anchor) anchor.scrollIntoView({behavior: 'smooth', block: 'center'});
-    };
-
-    return (
-        <Zoom in={trigger}>
-            <div onClick={handleClick} role="presentation" className={classes.root}>
-                {children}
-            </div>
-        </Zoom>
-    );
-}
+import logo from '../../assets/logo-new.svg';
+import {headerReducer, initialHeaderState} from "../../state/reducers/headerReducer";
+import {CLOSE_MENU, OPEN_MENU, SET_LINK_VALUE} from "../../state/reducers/headerTypes";
+import {ScrollTop, useStyles} from "./headerMuiStyles";
 
 export const Header = (props) => {
     const [state, dispatch] = useReducer(headerReducer, initialHeaderState);
     const classes = useStyles();
 
-    const handleSetLinkValue = (value) => dispatch({type: 'SET_LINK_VALUE', payload: value});
+    const handleSetLinkValue = (value) => dispatch({type: SET_LINK_VALUE, payload: value});
     const onChangeHandle = (evt, value) => handleSetLinkValue(value);
+    const handleOpenMenu = (event) => dispatch({type: OPEN_MENU, payload: event.currentTarget});
+    const handleCloseMenu = () => dispatch({type: CLOSE_MENU});
 
     useEffect(() => {
         if (window.location.pathname === '/' && state.linkValue !== 0) handleSetLinkValue(0)
@@ -108,7 +50,14 @@ export const Header = (props) => {
                     </Button>
                     <Tabs value={state.linkValue} onChange={onChangeHandle} className={classes.tabsContainer}>
                         <Tab className={classes.tab} component={Link} to="/" label="Home"/>
-                        <Tab label="Services" component={Link} to="/services"/>
+                        <Tab
+                            aria-owns={state.anchorEl ? "service-menu" : undefined}
+                            aria-haspopup={state.anchorEl ? "true" : undefined}
+                            onMouseOver={(e) => handleOpenMenu(e)}
+                            label="Services"
+                            component={Link}
+                            to="/services"
+                        />
                         <Tab label="Vision" component={Link} to="/vision"/>
                         <Tab label="About us" component={Link} to="/about"/>
                         <Tab label="Contact us" component={Link} to="/contact"/>
@@ -130,6 +79,18 @@ export const Header = (props) => {
                     <KeyboardArrowUpIcon/>
                 </Fab>
             </ScrollTop>
+            <Menu
+                id="service-menu"
+                anchorEl={state.anchorEl}
+                keepMounted
+                open={Boolean(state.anchorEl)}
+                onClose={handleCloseMenu}
+                MenuListProps={{onMouseLeave: handleCloseMenu}}
+            >
+                <MenuItem onClick={handleCloseMenu}>Software Development</MenuItem>
+                <MenuItem onClick={handleCloseMenu}>Mobile Apps Development</MenuItem>
+                <MenuItem onClick={handleCloseMenu}>Web Development</MenuItem>
+            </Menu>
         </>
     )
 }

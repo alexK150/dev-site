@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Header} from "./Header";
+import {Header} from "./Header/Header";
 import { ThemeProvider } from '@material-ui/styles';
 import theme from "./../common/MUITheme";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
