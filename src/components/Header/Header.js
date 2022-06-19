@@ -15,7 +15,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import logo from '../../assets/logo-new.svg';
 import {headerReducer, initialHeaderState} from "../../state/reducers/headerReducer";
-import {CLOSE_MENU, OPEN_MENU, SET_LINK_VALUE} from "../../state/reducers/headerTypes";
+import {CLOSE_MENU, MENU_ITEM_CLICK, OPEN_MENU, SET_LINK_VALUE} from "../../state/reducers/headerTypes";
 import {ScrollTop, useStyles} from "./headerMuiStyles";
 
 export const Header = (props) => {
@@ -34,6 +34,17 @@ export const Header = (props) => {
         else if (window.location.pathname === '/about' && state.linkValue !== 3) handleSetLinkValue(3)
         else if (window.location.pathname === '/contact' && state.linkValue !== 4) handleSetLinkValue(4)
     }, [state.value])
+
+    const menuOptions = [
+        {name: "Services", link: "/services"},
+        {name: "Software Development", link: "/software"},
+        {name: "Mobile Apps Development", link: "/mobile-dev"},
+        {name: "Web Development", link: "/web-dev"},
+    ]
+
+    const handleMenuItemClick = (evt, idx) => {
+        dispatch({type: MENU_ITEM_CLICK, payload: idx})
+    }
 
     return (
         <>
@@ -86,10 +97,20 @@ export const Header = (props) => {
                 open={Boolean(state.anchorEl)}
                 onClose={handleCloseMenu}
                 MenuListProps={{onMouseLeave: handleCloseMenu}}
+                classes={{paper: classes.menuPaper}}
+                elevation={0}
             >
-                <MenuItem onClick={handleCloseMenu}>Software Development</MenuItem>
-                <MenuItem onClick={handleCloseMenu}>Mobile Apps Development</MenuItem>
-                <MenuItem onClick={handleCloseMenu}>Web Development</MenuItem>
+                {menuOptions.map((item, idx) => (
+                    <MenuItem onClick={(e) => {handleMenuItemClick(e, idx);handleCloseMenu();handleSetLinkValue(1)}}
+                              component={Link}
+                              to={item.link}
+                              classes={{root: classes.menuItemRoot}}
+                              selected={idx===state.selectedMenuItemIndex && state.linkValue === 1}
+                    >
+                        {item.name}
+                    </MenuItem>
+                ))
+                }
             </Menu>
         </>
     )

@@ -34,6 +34,17 @@ export const useStyles = makeStyles((theme) => ({
         "&:hover": {
             backgroundColor: "transparent"
         }
+    },
+    menuPaper: {
+        backgroundColor: theme.palette.primary.main,
+        color: "white"
+    },
+    menuItemRoot: {
+        ...theme.typography.tab,
+        opacity: 0.7,
+        "&:hover": {
+            opacity: 1
+        }
     }
 }));
 

@@ -14,9 +14,9 @@ class App extends Component {
                         <Switch>
                             <Route exact path='/' component={() => <div>Home</div>} />
                             <Route exact path='/services' component={() => <div>services</div>} />
-                            <Route exact path='/custom-software' component={() => <div>custom-software</div>} />
-                            <Route exact path='/mobile-apps' component={() => <div>mobile-apps</div>} />
-                            <Route exact path='/websites' component={() => <div>websites</div>} />
+                            <Route exact path='/software' component={() => <div>custom-software</div>} />
+                            <Route exact path='/mobile-dev' component={() => <div>mobile-apps</div>} />
+                            <Route exact path='/web-dev' component={() => <div>websites</div>} />
                             <Route exact path='/vision' component={() => <div>vision</div>} />
                             <Route exact path='/about' component={() => <div>about</div>} />
                             <Route exact path='/contact' component={() => <div>contact</div>} />
